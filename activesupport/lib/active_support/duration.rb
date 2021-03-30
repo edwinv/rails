@@ -169,6 +169,10 @@ module ActiveSupport
       def months(value) #:nodoc:
         new(value * SECONDS_PER_MONTH, months: value)
       end
+      
+      def quarters(value) #:nodoc:
+        new(value * 3 * SECONDS_PER_MONTH, months: value * 3)
+      end
 
       def years(value) #:nodoc:
         new(value * SECONDS_PER_YEAR, years: value)
