@@ -15,7 +15,7 @@ class Integer
   # Returns a Duration instance matching the number of quarters provided.
   #
   #   2.quarters # => 2 quarters
-  def months
+  def quarters
     ActiveSupport::Duration.quarters(self)
   end
   alias :quarter :quarters
