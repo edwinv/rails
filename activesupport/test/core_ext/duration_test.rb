@@ -76,6 +76,12 @@ class DurationTest < ActiveSupport::TestCase
     assert_in_delta 12.0, 1.year.in_months
   end
 
+  def test_in_quarters
+    assert_in_delta 1, 1.quarter.in_quarters
+    assert_in_delta 4, 1.year.in_quarters
+    assert_in_delta 1.333, 4.months.in_quarters
+  end
+
   def test_in_years
     assert_in_delta 0.082, 30.days.in_years
     assert_in_delta 1.0, 365.days.in_years
@@ -101,6 +107,8 @@ class DurationTest < ActiveSupport::TestCase
     assert_equal "1 month",                         1.month.inspect
     assert_equal "1 month and 1 day",               (1.month + 1.day).inspect
     assert_equal "6 months and -2 days",            (6.months - 2.days).inspect
+    assert_equal "1 quarter",                       1.quarter.inspect
+    assert_equal "2 quarters and 1 day",            (2.quarters + 1.day).inspect
     assert_equal "10 seconds",                      10.seconds.inspect
     assert_equal "10 years, 2 months, and 1 day",   (10.years + 2.months + 1.day).inspect
     assert_equal "10 years, 2 months, and 1 day",   (10.years + 1.month  + 1.day + 1.month).inspect

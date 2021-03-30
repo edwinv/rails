@@ -105,24 +105,26 @@ module ActiveSupport
         end
     end
 
-    SECONDS_PER_MINUTE = 60
-    SECONDS_PER_HOUR   = 3600
-    SECONDS_PER_DAY    = 86400
-    SECONDS_PER_WEEK   = 604800
-    SECONDS_PER_MONTH  = 2629746  # 1/12 of a gregorian year
-    SECONDS_PER_YEAR   = 31556952 # length of a gregorian year (365.2425 days)
+    SECONDS_PER_MINUTE  = 60
+    SECONDS_PER_HOUR    = 3600
+    SECONDS_PER_DAY     = 86400
+    SECONDS_PER_WEEK    = 604800
+    SECONDS_PER_MONTH   = 2629746  # 1/12 of a gregorian year
+    SECONDS_PER_QUARTER = 7889238  # 3/12 of a gregorian year
+    SECONDS_PER_YEAR    = 31556952 # length of a gregorian year (365.2425 days)
 
     PARTS_IN_SECONDS = {
-      seconds: 1,
-      minutes: SECONDS_PER_MINUTE,
-      hours:   SECONDS_PER_HOUR,
-      days:    SECONDS_PER_DAY,
-      weeks:   SECONDS_PER_WEEK,
-      months:  SECONDS_PER_MONTH,
-      years:   SECONDS_PER_YEAR
+      seconds:  1,
+      minutes:  SECONDS_PER_MINUTE,
+      hours:    SECONDS_PER_HOUR,
+      days:     SECONDS_PER_DAY,
+      weeks:    SECONDS_PER_WEEK,
+      months:   SECONDS_PER_MONTH,
+      quarters: SECONDS_PER_QUARTER,
+      years:    SECONDS_PER_YEAR
     }.freeze
 
-    PARTS = [:years, :months, :weeks, :days, :hours, :minutes, :seconds].freeze
+    PARTS = [:years, :months, :quarters, :weeks, :days, :hours, :minutes, :seconds].freeze
 
     attr_accessor :value, :parts
 
@@ -169,9 +171,9 @@ module ActiveSupport
       def months(value) #:nodoc:
         new(value * SECONDS_PER_MONTH, months: value)
       end
-      
+
       def quarters(value) #:nodoc:
-        new(value * 3 * SECONDS_PER_MONTH, months: value * 3)
+        new(value * SECONDS_PER_QUARTER, quarters: value)
       end
 
       def years(value) #:nodoc:
@@ -388,6 +390,13 @@ module ActiveSupport
     #   9.weeks.in_months # => 2.07
     def in_months
       in_seconds / SECONDS_PER_MONTH.to_f
+    end
+
+    # Returns the amount of QUARTERs a duration covers as a float
+    #
+    #   9.weeks.in_QUARTERs # => 2.07
+    def in_quarters
+      in_seconds / SECONDS_PER_QUARTER.to_f
     end
 
     # Returns the amount of years a duration covers as a float
