@@ -11,6 +11,14 @@ class Integer
     ActiveSupport::Duration.months(self)
   end
   alias :month :months
+  
+  # Returns a Duration instance matching the number of quarters provided.
+  #
+  #   2.quarters # => 2 quarters
+  def months
+    ActiveSupport::Duration.quarters(self)
+  end
+  alias :quarter :quarters
 
   # Returns a Duration instance matching the number of years provided.
   #
